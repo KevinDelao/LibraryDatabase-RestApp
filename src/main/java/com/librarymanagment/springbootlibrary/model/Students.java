@@ -1,9 +1,6 @@
 package com.librarymanagment.springbootlibrary.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Students {
@@ -51,7 +48,7 @@ public class Students {
         this.department = department;
     }
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="student_id")
     private Integer id;
     @Column(name="name")

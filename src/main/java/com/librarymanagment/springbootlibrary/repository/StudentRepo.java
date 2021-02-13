@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 //integer because ID of students is Integer
 //Used to specify domain of entity
 //this comes with built in functions like findALL
-public interface StudentRepository extends JpaRepository<Students,Integer>{
+public interface StudentRepo extends JpaRepository<Students,Integer>{
 }

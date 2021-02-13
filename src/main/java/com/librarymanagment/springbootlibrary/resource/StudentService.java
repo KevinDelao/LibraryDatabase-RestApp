@@ -1,19 +1,17 @@
 package com.librarymanagment.springbootlibrary.resource;
 
 import com.librarymanagment.springbootlibrary.model.Students;
-import com.librarymanagment.springbootlibrary.repository.StudentRepository;
+import com.librarymanagment.springbootlibrary.repository.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 //rest endpoint to process and retrieve data
 @Service
-public class StudentResource {
+public class StudentService {
     @Autowired
-    StudentRepository studentRepository;
+    StudentRepo studentRepository;
 
     public List<Students> getAll(){
         return studentRepository.findAll();
