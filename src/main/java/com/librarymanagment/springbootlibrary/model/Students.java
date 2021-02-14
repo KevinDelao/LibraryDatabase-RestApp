@@ -1,8 +1,10 @@
 package com.librarymanagment.springbootlibrary.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name="student")
 public class Students {
     //need default constructor for connection to SQL table to be made
     //Hibernate uses the default constructor to create entity objects.
@@ -47,6 +49,15 @@ public class Students {
     public void setDepartment(String department) {
         this.department = department;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="student_id")
@@ -57,6 +68,10 @@ public class Students {
     private int age;
     @Column(name="department")
     private String department;
+    @Column(name="email")
+    private String email;
+//    @JoinTable
+//    private List<Book> bookList;
 
 
 }

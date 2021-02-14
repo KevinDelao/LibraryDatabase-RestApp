@@ -23,16 +23,13 @@ public class StudentService {
         return studentRepository.findById(theId).get();
 
     }
-    //used to push data to students table
-    //saves a student entered through the students/load pathway POST method
 
-    public List<Students> persist(final Students student){
-        studentRepository.save(student);
-        return studentRepository.findAll();
-    }
-    public List<Students> deleteCustomer(Integer theId)
+    public void deleteStudentByID(Integer theId)
     {
         studentRepository.deleteById(theId);
-        return studentRepository.findAll();
+    }
+
+    public void save(Students student){
+        studentRepository.save(student);
     }
 }
