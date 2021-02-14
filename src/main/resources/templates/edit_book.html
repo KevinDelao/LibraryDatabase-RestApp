@@ -2,18 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" >
-    <title>Title</title>
+    <title>Book Edit</title>
 </head>
 <body>
 <div align="center">
-    <h1>Edit Product</h1>
+    <h1>Edit Book</h1>
     <br />
     <form action="#" th:action="@{/saveBook}" th:object="${book}"
           method="post">
 
         <table border="0" cellpadding="10">
             <tr>
-                <td>Product ID:</td>
+                <td>Book ID:</td>
                 <td>
                     <input type="text" th:field="*{id}" readonly="readonly" />
                 </td>

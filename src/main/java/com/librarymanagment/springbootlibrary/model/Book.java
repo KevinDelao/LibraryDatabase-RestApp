@@ -1,6 +1,7 @@
 package com.librarymanagment.springbootlibrary.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -56,13 +57,12 @@ public class Book {
         this.stock = stock;
     }
 
-//    public List<Students> getStudentsList() {
-//        return studentsList;
-//    }
-//
-//    public void setStudentsList(List<Students> studentsList) {
-//        this.studentsList = studentsList;
-//    }
+    public List<Students> getStudentsList() {
+        return studentList;
+    }
+    public void setStudentsList(List<Students> studentsList) {
+        this.studentList = studentsList;
+    }
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -79,5 +79,9 @@ public class Book {
     @Column(name="stock")
     private int stock;
 
-//    private List<Students> studentsList;
+    //mappedBy should match name of list in the Students entity,
+    // in Students model, there is a list of Books called bookList
+    // review fetch and cascade
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "bookList")
+    private List<Students> studentList = new ArrayList<>();
 }

@@ -1,10 +1,11 @@
 package com.librarymanagment.springbootlibrary.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="student")
+@Table(name="students")
 public class Students {
     //need default constructor for connection to SQL table to be made
     //Hibernate uses the default constructor to create entity objects.
@@ -58,6 +59,14 @@ public class Students {
         this.email = email;
     }
 
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="student_id")
@@ -70,8 +79,12 @@ public class Students {
     private String department;
     @Column(name="email")
     private String email;
-//    @JoinTable
-//    private List<Book> bookList;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "student_books",
+            joinColumns = { @JoinColumn(name = "student_id")},
+            inverseJoinColumns = { @JoinColumn (name = "ISBN")})
+    private List<Book> bookList = new ArrayList<>();
 
 
 }

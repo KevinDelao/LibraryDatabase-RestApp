@@ -1,7 +1,9 @@
 package com.librarymanagment.springbootlibrary.controller;
 
 import com.librarymanagment.springbootlibrary.model.Book;
+import com.librarymanagment.springbootlibrary.model.Students;
 import com.librarymanagment.springbootlibrary.resource.BookService;
+import com.librarymanagment.springbootlibrary.resource.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import java.util.List;
 public class AppController {
     @Autowired
    private BookService bookService;
+    @Autowired
+    private StudentService studentService;
     @RequestMapping("/")
     public String viewHomePage(Model model){
         List<Book> bookList = bookService.getAll();
@@ -36,7 +40,7 @@ public class AppController {
         return "redirect:/";
     }
     @RequestMapping("/edit/{id}")
-    public ModelAndView showEditProductPage(@PathVariable(name = "id") Integer id) {
+    public ModelAndView editBook(@PathVariable(name = "id") Integer id) {
         ModelAndView mav = new ModelAndView("edit_book");
         Book book = bookService.findBook(id);
         mav.addObject("book", book);
@@ -45,7 +49,11 @@ public class AppController {
     }
     @RequestMapping("/delete/{id}")
     public String deleteBook(@PathVariable(name = "id") Integer id) {
+//        List<Students> studentsList = bookService.findBook(id).getStudentsList();
         bookService.deleteBookByID(id);
+//        for(int i=0; i <studentsList.size();i++){
+//            studentService.save(studentsList.get(i));
+//        }
         return "redirect:/";
     }
 }

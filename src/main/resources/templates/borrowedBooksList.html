@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Hello World</title>
+</head>
+<body>
+<h1 align="center">Borrowed Books</h1>
+
+<div align="center">
+    <a href ="/">Home Page</a>
+
+    <br></br>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>
+                ISBN
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Publisher
+            </th>
+            <th>
+                Stock
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${borrowedBooks}">
+            <!--            id, name age and department should match Students class variables-->
+            <td th:text="${book.id}">ID</td>
+            <td th:text="${book.title}">title</td>
+            <td th:text="${book.author}">author</td>
+            <td th:text="${book.publisher}">publisher</td>
+            <td th:text="${book.stock}">stock</td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
