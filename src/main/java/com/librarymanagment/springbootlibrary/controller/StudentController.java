@@ -3,6 +3,7 @@ package com.librarymanagment.springbootlibrary.controller;
 import com.librarymanagment.springbootlibrary.model.Book;
 import com.librarymanagment.springbootlibrary.model.DateInformation;
 import com.librarymanagment.springbootlibrary.model.Students;
+import com.librarymanagment.springbootlibrary.resource.DateInformationService;
 import com.librarymanagment.springbootlibrary.resource.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,8 @@ import java.util.List;
 public class StudentController {
     @Autowired
     StudentService studentService;
-
+    @Autowired
+    DateInformationService dateInformationService;
 
     @RequestMapping("/showStudents")
     public String getAllStudents(Model model){
@@ -44,9 +46,13 @@ public class StudentController {
     public String showBooks(@PathVariable(name = "id") Integer id,Model model, Model model2)
     {
         Students student = studentService.findStudent(id);
+        List <Book> bookList = student.getBookList();
         List<DateInformation> dateInformations = new ArrayList<>();
-
-        model.addAttribute("borrowedBooks",student.getBookList());
+        for(int i = 0; i< bookList.size();i++){
+            dateInformations.add(dateInformationService.findDateInfoFromDates(bookList.get(i).getId(),student.getId()));
+        }
+        model.addAttribute("borrowedBooks",bookList);
+        model2.addAttribute("dateInfoLists",dateInformations);
         return "borrowedBooksList";
     }
     @RequestMapping("/editStudent/{id}")

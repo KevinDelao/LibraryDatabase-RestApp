@@ -3,7 +3,7 @@ package com.librarymanagment.springbootlibrary.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="dateInfo")
+@Table(name="date_info")
 public class DateInformation {
     public DateInformation(){}
     public Integer getId() {

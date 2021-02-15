@@ -12,7 +12,7 @@
     <a href ="/">Home Page</a>
 
     <br></br>
-    <table border="1">
+    <table border="1" style="float: left;">
         <thead>
         <tr>
             <th>
@@ -27,9 +27,7 @@
             <th>
                 Publisher
             </th>
-            <th>
-                Stock
-            </th>
+
 
         </tr>
         </thead>
@@ -40,7 +38,28 @@
             <td th:text="${book.title}">title</td>
             <td th:text="${book.author}">author</td>
             <td th:text="${book.publisher}">publisher</td>
-            <td th:text="${book.stock}">stock</td>
+
+        </tr>
+        </tbody>
+    </table>
+    <table border="1" style="float: left;">
+        <thead>
+        <tr>
+            <th>
+                Borrow Date
+            </th>
+            <th>
+                Due Date
+            </th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dateInfo : ${dateInfoLists}">
+            <!--            id, name age and department should match Students class variables-->
+            <td th:text="${dateInfo.borrowDate}">borrowDate</td>
+            <td th:text="${dateInfo.dueDate}">dueDate</td>
 
         </tr>
         </tbody>

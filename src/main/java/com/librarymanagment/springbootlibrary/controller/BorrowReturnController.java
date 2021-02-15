@@ -45,4 +45,27 @@ public class BorrowReturnController {
         bookService.saveBook(book);
         return "redirect:/";
     }
+    @RequestMapping("/returnBook")
+    public String bookReturnMapping()
+    {
+        return "returnBook";
+
+    }
+    @RequestMapping(value="/returnBookSave", method = RequestMethod.POST)
+    public String bookReturnProcessing(@RequestParam(name = "book_ISBN") String ISBN,
+                                       @RequestParam(name = "student_ID") String SID,
+                                       @RequestParam(name = "returnDate") String borrowDate){
+        Book book =  bookService.findBook(Integer.parseInt(ISBN));
+        Students student = studentService.findStudent(Integer.parseInt(SID));
+        student.getBookList().remove(book);
+        book.getStudentsList().remove(student);
+        dateInformationService.deleteDates(book.getId(),student.getId());
+
+        studentService.save(student);
+        bookService.saveBook(book);
+
+        return "redirect:/";
+
+    }
+
 }

@@ -16,4 +16,9 @@ public class DateInformationService {
     {
         return dateInformationRepo.searchBorrowDate(ISBN,student_id);
     }
+    public void deleteDates(Integer ISBN, Integer student_id)
+    {
+         dateInformationRepo.deleteDates(ISBN,student_id);
+    }
+
 }

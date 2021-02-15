@@ -33,6 +33,9 @@
                 Email
             </th>
             <th>
+                Fines
+            </th>
+            <th>
                 Action
             </th>
             <th>
@@ -48,6 +51,7 @@
             <td th:text="${student.age}">age</td>
             <td th:text="${student.department}">department</td>
             <td th:text="${student.email}">email</td>
+            <td th:text="${student.fines}">fines</td>
             <td>
                 <a th:href="@{/editStudent/{id}(id=${student.id})}">Edit</a>
                 <a th:href="@{/deleteStudent/{id}(id=${student.id})}">Delete</a>

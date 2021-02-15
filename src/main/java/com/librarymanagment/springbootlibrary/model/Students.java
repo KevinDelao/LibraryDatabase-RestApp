@@ -10,7 +10,9 @@ public class Students {
     //need default constructor for connection to SQL table to be made
     //Hibernate uses the default constructor to create entity objects.
     //If the default constructor is not available in any of the entities then InstantiationException occurs
-    public Students(){}
+    public Students(){
+        this.fines = 0;
+    }
     public Students(String name,int age,String department)
     {
         this.id = id;
@@ -67,6 +69,14 @@ public class Students {
         this.bookList = bookList;
     }
 
+    public int getFines() {
+        return fines;
+    }
+
+    public void setFines(int fines) {
+        this.fines = fines;
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="student_id")
@@ -79,8 +89,10 @@ public class Students {
     private String department;
     @Column(name="email")
     private String email;
+    @Column(name="fines")
+    private int fines;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "student_books",
             joinColumns = { @JoinColumn(name = "student_id")},
             inverseJoinColumns = { @JoinColumn (name = "ISBN")})
