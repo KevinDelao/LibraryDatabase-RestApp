@@ -12,11 +12,11 @@ public class DateInformationService {
     public void saveDateInfo(DateInformation dateInformation){
         dateInformationRepo.save(dateInformation);
     }
-    public DateInformation findDateInfoFromDates(Integer ISBN, Integer student_id)
+    public DateInformation findDateInfoFromDates(Long ISBN, Integer student_id)
     {
         return dateInformationRepo.searchBorrowDate(ISBN,student_id);
     }
-    public void deleteDates(Integer ISBN, Integer student_id)
+    public void deleteDates(Long ISBN, Integer student_id)
     {
          dateInformationRepo.deleteDates(ISBN,student_id);
     }

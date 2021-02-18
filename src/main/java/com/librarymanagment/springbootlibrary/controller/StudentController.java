@@ -8,10 +8,7 @@ import com.librarymanagment.springbootlibrary.resource.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -37,11 +34,13 @@ public class StudentController {
         model.addAttribute("student",students);
         return "new_student";
     }
-    @RequestMapping(value = "/saveStudent", method = RequestMethod.POST)
+    @PostMapping
+    @RequestMapping(value = "/saveStudent")
     public String saveStudent(@ModelAttribute("student") Students student){
         studentService.save(student);
         return "redirect:/showStudents";
     }
+
     @RequestMapping("/borrowedBooks/{id}")
     public String showBooks(@PathVariable(name = "id") Integer id,Model model, Model model2)
     {
@@ -49,6 +48,7 @@ public class StudentController {
         List <Book> bookList = student.getBookList();
         List<DateInformation> dateInformations = new ArrayList<>();
         for(int i = 0; i< bookList.size();i++){
+            // find date info based on book ID and student id and the add date info object to list
             dateInformations.add(dateInformationService.findDateInfoFromDates(bookList.get(i).getId(),student.getId()));
         }
         model.addAttribute("borrowedBooks",bookList);
@@ -59,6 +59,8 @@ public class StudentController {
     public ModelAndView editStudent(@PathVariable(name = "id") Integer id) {
         ModelAndView mav = new ModelAndView("edit_student");
         Students student = studentService.findStudent(id);
+        //
+
         mav.addObject("student", student);
 
         return mav;
@@ -69,6 +71,28 @@ public class StudentController {
 //        book.remove(studentService.findStudent(id));
         studentService.deleteStudentByID(id);
 
+        return "redirect:/showStudents";
+    }
+    @RequestMapping("/finePayment")
+    public String payFineRedirect() {
+
+        //directs to finePayment.html
+        return "finePayment";
+    }
+    @PostMapping
+    @RequestMapping(value = "/paymentFineSave")
+    public String payFineProcessing(@RequestParam(name = "student_ID") String student_id,
+                                    @RequestParam(name = "payment") Double payment) {
+
+        Students student = studentService.findStudent(Integer.parseInt(student_id));
+        double remainder = 0;
+        remainder = student.getFines() - payment;
+        if(remainder < 0)
+        {
+            remainder = 0;
+        }
+        student.setFines(remainder);
+        studentService.save(student);
         return "redirect:/showStudents";
     }
 }

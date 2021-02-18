@@ -14,11 +14,11 @@ public class DateInformation {
         this.id = id;
     }
 
-    public Integer getBook_id() {
+    public Long getBook_id() {
         return book_id;
     }
 
-    public void setBook_id(Integer book_id) {
+    public void setBook_id(Long book_id) {
         this.book_id = book_id;
     }
 
@@ -51,7 +51,7 @@ public class DateInformation {
     @Column(name="id")
     private Integer id;
     @Column(name="ISBN")
-    private Integer book_id;
+    private Long book_id;
     @Column(name="student_id")
     private Integer student_id;
     @Column(name="borrowDate")

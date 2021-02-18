@@ -33,14 +33,15 @@ public class AppController {
 
         return "newBook";
     }
-    @RequestMapping(value = "/saveBook", method = RequestMethod.POST)
+    @PostMapping
+    @RequestMapping(value = "/saveBook")
     public String saveBook(@ModelAttribute("book") Book book) {
         bookService.saveBook(book);
 
         return "redirect:/";
     }
     @RequestMapping("/edit/{id}")
-    public ModelAndView editBook(@PathVariable(name = "id") Integer id) {
+    public ModelAndView editBook(@PathVariable(name = "id") Long id) {
         ModelAndView mav = new ModelAndView("edit_book");
         Book book = bookService.findBook(id);
         mav.addObject("book", book);
@@ -48,7 +49,7 @@ public class AppController {
         return mav;
     }
     @RequestMapping("/delete/{id}")
-    public String deleteBook(@PathVariable(name = "id") Integer id) {
+    public String deleteBook(@PathVariable(name = "id") Long id) {
 //        List<Students> studentsList = bookService.findBook(id).getStudentsList();
         bookService.deleteBookByID(id);
 //        for(int i=0; i <studentsList.size();i++){

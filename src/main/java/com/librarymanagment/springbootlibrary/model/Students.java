@@ -69,11 +69,11 @@ public class Students {
         this.bookList = bookList;
     }
 
-    public int getFines() {
+    public double getFines() {
         return fines;
     }
 
-    public void setFines(int fines) {
+    public void setFines(double fines) {
         this.fines = fines;
     }
 
@@ -90,7 +90,7 @@ public class Students {
     @Column(name="email")
     private String email;
     @Column(name="fines")
-    private int fines;
+    private double fines;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "student_books",

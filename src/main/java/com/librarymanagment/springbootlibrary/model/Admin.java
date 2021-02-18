@@ -10,4 +10,10 @@ public class Admin {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="admin_id")
     private Integer id;
+    @Column(name="name")
+    private String name;
+    @Column(name="username")
+    private String username;
+    @Column(name="password")
+    private String password;
 }

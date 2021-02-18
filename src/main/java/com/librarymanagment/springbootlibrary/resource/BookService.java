@@ -17,10 +17,9 @@ public class BookService {
 
     }
 
-    public Book findBook(Integer theId)
+    public Book findBook(Long theId)
     {
-        return bookRepo.findById(theId).get();
-
+        return bookRepo.findBookbyISBN(theId);
     }
     public void saveBook(Book book)
     {
@@ -33,8 +32,8 @@ public class BookService {
 //        studentRepository.save(student);
 //        return studentRepository.findAll();
 //    }
-    public void deleteBookByID(Integer theId)
+    public void deleteBookByID(Long theId)
     {
-        bookRepo.deleteById(theId);
+        bookRepo.deleteBookbyISBN(theId);
     }
 }

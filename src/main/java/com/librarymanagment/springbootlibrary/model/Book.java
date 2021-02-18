@@ -1,19 +1,25 @@
 package com.librarymanagment.springbootlibrary.model;
 
 import javax.persistence.*;
+import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 @Entity
 @Table(name = "book")
 public class Book {
 
-    public Book(){}
-    public Integer getId() {
+    public Book(){
+        Random random = new Random();
+        this.id = Math.round(random.nextFloat() * Math.pow(10,13));
+    }
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,9 +71,9 @@ public class Book {
     }
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+//    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="ISBN")
-    private Integer id;
+    private Long id;
     @Column(name="title")
     private String title;
     @Column(name="author")
