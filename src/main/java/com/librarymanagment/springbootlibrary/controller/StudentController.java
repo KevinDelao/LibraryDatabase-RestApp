@@ -6,9 +6,11 @@ import com.librarymanagment.springbootlibrary.model.Students;
 import com.librarymanagment.springbootlibrary.resource.DateInformationService;
 import com.librarymanagment.springbootlibrary.resource.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -37,8 +39,14 @@ public class StudentController {
     @PostMapping
     @RequestMapping(value = "/saveStudent")
     public String saveStudent(@ModelAttribute("student") Students student){
-        studentService.save(student);
-        return "redirect:/showStudents";
+        try {
+            studentService.save(student);
+            return "redirect:/showStudents";
+        } catch (Exception ex) {
+            return "redirect:/showStudents";
+//            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, ex.getMessage(), ex);
+        }
+
     }
 
     @RequestMapping("/borrowedBooks/{id}")
