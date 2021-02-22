@@ -23,8 +23,7 @@ public class BorrowReturnController {
         return "borrowBook";
     }
 
-    @PostMapping
-    @RequestMapping(value = "/borrowBookSave")
+    @PostMapping(value = "/borrowBookSave")
     public String borrowBook(@RequestParam(name = "book_ISBN") String ISBN,
                              @RequestParam(name = "student_ID") String SID,
                              @RequestParam(name = "borrowDate") String borrowDate,
@@ -51,8 +50,7 @@ public class BorrowReturnController {
         return "returnBook";
 
     }
-    @PostMapping
-    @RequestMapping(value="/returnBookSave")
+    @PostMapping(value="/returnBookSave")
     public String bookReturnProcessing(@RequestParam(name = "book_ISBN") String ISBN,
                                        @RequestParam(name = "student_ID") String SID,
                                        @RequestParam(name = "returnDate") String returnDate){

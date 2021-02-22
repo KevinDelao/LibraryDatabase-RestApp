@@ -26,7 +26,8 @@
             </tr>
             <tr>
                 <td>Stock:</td>
-                <td><input type="text" th:field="*{stock}" /></td>
+                <td><input type="number" th:field="*{stock}" id="stockInput" name="stockInput"
+                           min="1" max="100"></td>
             </tr>
             <tr>
                 <td colspan="2"><button type="submit">Save</button> </td>

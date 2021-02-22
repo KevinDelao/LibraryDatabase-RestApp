@@ -1,6 +1,9 @@
 package com.librarymanagment.springbootlibrary.model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +77,7 @@ public class Book {
 //    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="ISBN")
     private Long id;
+    @NotBlank
     @Column(name="title")
     private String title;
     @Column(name="author")

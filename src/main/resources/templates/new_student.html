@@ -15,10 +15,14 @@
             <tr>
                 <td>Name:</td>
                 <td><input type="text" th:field="*{name}" /></td>
+
             </tr>
             <tr>
                 <td>Age:</td>
-                <td><input type="text" th:field="*{age}" /></td>
+<!--                <td><input type="text" th:field="*{age}" /></td>-->
+               <td><input type="number" th:field="*{age}" id="ageInput" name="ageInput"
+                       min="10" max="100"></td>
+
             </tr>
             <tr>
                 <td>Department:</td>
@@ -30,6 +34,9 @@
             </tr>
             <tr>
                 <td colspan="2"><button type="submit">Save</button> </td>
+                <td colspan="2"> <a href="/showStudents">
+                    <input type="button" value="Cancel" />
+                </a></td>
             </tr>
         </table>
     </form>

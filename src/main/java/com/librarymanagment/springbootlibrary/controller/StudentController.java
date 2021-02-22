@@ -1,5 +1,6 @@
 package com.librarymanagment.springbootlibrary.controller;
 
+import com.librarymanagment.springbootlibrary.exception.EntityNotProcessableException;
 import com.librarymanagment.springbootlibrary.model.Book;
 import com.librarymanagment.springbootlibrary.model.DateInformation;
 import com.librarymanagment.springbootlibrary.model.Students;
@@ -9,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,15 +40,19 @@ public class StudentController {
         model.addAttribute("student",students);
         return "new_student";
     }
-    @PostMapping
-    @RequestMapping(value = "/saveStudent")
-    public String saveStudent(@ModelAttribute("student") Students student){
-        try {
+    @PostMapping("/saveStudent")
+    public String saveStudent(@Valid @ModelAttribute("student") Students student, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return "redirect:/newStudent";
+        }
+
+        else if(student.getName().isBlank()||student.getDepartment().isBlank()||student.getEmail().isBlank()){
+            return "redirect:/newStudent";
+        }
+        else {
             studentService.save(student);
             return "redirect:/showStudents";
-        } catch (Exception ex) {
-            return "redirect:/showStudents";
-//            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, ex.getMessage(), ex);
         }
 
     }
@@ -87,8 +95,7 @@ public class StudentController {
         //directs to finePayment.html
         return "finePayment";
     }
-    @PostMapping
-    @RequestMapping(value = "/paymentFineSave")
+    @PostMapping(value = "/paymentFineSave")
     public String payFineProcessing(@RequestParam(name = "student_ID") String student_id,
                                     @RequestParam(name = "payment") Double payment) {
 

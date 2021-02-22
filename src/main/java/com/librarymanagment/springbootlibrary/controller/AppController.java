@@ -7,9 +7,11 @@ import com.librarymanagment.springbootlibrary.resource.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -33,12 +35,20 @@ public class AppController {
 
         return "newBook";
     }
-    @PostMapping
-    @RequestMapping(value = "/saveBook")
-    public String saveBook(@ModelAttribute("book") Book book) {
-        bookService.saveBook(book);
+    @PostMapping(value = "/saveBook")
+    public String saveBook(@Valid @ModelAttribute("book") Book book, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "redirect:/newBook";
+        }
 
-        return "redirect:/";
+        else if(book.getTitle().isBlank()||book.getAuthor().isBlank()||book.getPublisher().isBlank()){
+            return "redirect:/newBook";
+        }
+        else {
+            bookService.saveBook(book);
+            return "redirect:/";
+        }
+
     }
     @RequestMapping("/edit/{id}")
     public ModelAndView editBook(@PathVariable(name = "id") Long id) {

@@ -1,10 +1,13 @@
 package com.librarymanagment.springbootlibrary.model;
 
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+
 @Table(name="students")
 public class Students {
     //need default constructor for connection to SQL table to be made
@@ -81,12 +84,19 @@ public class Students {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="student_id")
     private Integer id;
+    @NotBlank
+    @Size(min=3,max=20)
     @Column(name="name")
     private String name;
+    @NotBlank
+    @Min(18)
+    @Max(100)
     @Column(name="age")
     private int age;
+    @NotBlank
     @Column(name="department")
     private String department;
+    @NotBlank
     @Column(name="email")
     private String email;
     @Column(name="fines")
