@@ -23,6 +23,9 @@ public class StudentService {
         return studentRepository.findById(theId).get();
 
     }
+    public boolean ifStudentExists(Integer id){
+        return studentRepository.existsById(id);
+    }
 
     public void deleteStudentByID(Integer theId)
     {

@@ -1,19 +1,15 @@
 package com.librarymanagment.springbootlibrary.controller;
 
-import com.librarymanagment.springbootlibrary.exception.EntityNotProcessableException;
 import com.librarymanagment.springbootlibrary.model.Book;
 import com.librarymanagment.springbootlibrary.model.DateInformation;
 import com.librarymanagment.springbootlibrary.model.Students;
 import com.librarymanagment.springbootlibrary.resource.DateInformationService;
 import com.librarymanagment.springbootlibrary.resource.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -90,24 +86,42 @@ public class StudentController {
         return "redirect:/showStudents";
     }
     @RequestMapping("/finePayment")
-    public String payFineRedirect() {
-
+    public String payFineRedirect(Model model)
+    {
+        List<Students> studentsList = studentService.getAll();
+        model.addAttribute("listStudents",studentsList);
         //directs to finePayment.html
         return "finePayment";
     }
     @PostMapping(value = "/paymentFineSave")
-    public String payFineProcessing(@RequestParam(name = "student_ID") String student_id,
-                                    @RequestParam(name = "payment") Double payment) {
-
-        Students student = studentService.findStudent(Integer.parseInt(student_id));
-        double remainder = 0;
-        remainder = student.getFines() - payment;
-        if(remainder < 0)
+    public String payFineProcessing(@Valid @RequestParam(name = "student_ID") String student_id,
+                                    @RequestParam(name = "paymentInput") Double payment)
+    {
+        if(student_id.isBlank())
         {
-            remainder = 0;
+
+            return "redirect:/finePayment";
         }
-        student.setFines(remainder);
-        studentService.save(student);
-        return "redirect:/showStudents";
+        //if ID contains character, reload page
+        else if(!(student_id.matches("[0-9]+") && student_id.length() > 0)){
+            return "redirect:/finePayment";
+        }
+
+        // if student does not exist
+        else if(studentService.ifStudentExists(Integer.parseInt(student_id))==false)
+        {
+            return "redirect:/finePayment";
+        }
+        else {
+            Students student = studentService.findStudent(Integer.parseInt(student_id));
+            double remainder = 0;
+            remainder = student.getFines() - payment;
+            if (remainder < 0) {
+                remainder = 0;
+            }
+            student.setFines(remainder);
+            studentService.save(student);
+            return "redirect:/showStudents";
+        }
     }
 }

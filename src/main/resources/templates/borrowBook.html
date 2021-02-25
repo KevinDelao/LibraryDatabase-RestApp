@@ -7,7 +7,6 @@
 <body>
 <div align="center">
     <h1>Borrow book</h1>
-    <a href ="/">Cancel</a>
 
     <br />
     <form action="#" th:action="@{/borrowBookSave}" method="post">
@@ -34,7 +33,8 @@
                            min="2021-01-01" max="2030-12-31"></td>
             </tr>
             <tr>
-                <td colspan="2"><button type="submit">Save</button> </td>
+                <td ><button type="submit">Save</button> </td>
+                <td > <a href="/"><input type="button" value="Cancel" /></a></td>
             </tr>
         </table>
     </form>

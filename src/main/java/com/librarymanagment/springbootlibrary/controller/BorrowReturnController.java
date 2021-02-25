@@ -8,7 +8,10 @@ import com.librarymanagment.springbootlibrary.resource.DateInformationService;
 import com.librarymanagment.springbootlibrary.resource.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.Null;
 
 @Controller
 public class BorrowReturnController {
@@ -29,20 +32,48 @@ public class BorrowReturnController {
                              @RequestParam(name = "borrowDate") String borrowDate,
                              @RequestParam(name = "dueDate") String dueDate)
     {
-        Students student = studentService.findStudent(Integer.parseInt(SID));
-        Book book = bookService.findBook(Long.parseLong(ISBN));
-        student.getBookList().add(book);
-        book.getStudentsList().add(student);
-        book.setStock(book.getStock()-1);
-        DateInformation dateInformation = new DateInformation();
-        dateInformation.setBook_id(Long.parseLong(ISBN));
-        dateInformation.setStudent_id(Integer.parseInt(SID));
-        dateInformation.setBorrowDate(borrowDate);
-        dateInformation.setDueDate(dueDate);
-        dateInformationService.saveDateInfo(dateInformation);
-        studentService.save(student);
-        bookService.saveBook(book);
-        return "redirect:/";
+
+        if(ISBN.isBlank() || SID.isBlank())
+        {
+            return "redirect:/borrowBook";
+        }
+        // if String contains a character
+        else if(!(ISBN.matches("[0-9]+") && ISBN.length() > 0)){
+            return "redirect:/borrowBook";
+        }
+        else if(!(SID.matches("[0-9]+") && SID.length() > 0)){
+            return "redirect:/borrowBook";
+        }
+        // if student does not exist
+        else if(studentService.ifStudentExists(Integer.parseInt(SID))==false)
+        {
+            return "redirect:/borrowBook";
+        }
+        // if book does not exist
+        else if(bookService.ifBookNotExists(Long.parseLong(ISBN))){
+            return "redirect:/borrowBook";
+
+        }
+        //if out of stock
+        else if(bookService.findBook(Long.parseLong(ISBN)).getStock()==0){
+            return "redirect:/borrowBook";
+        }
+        else {
+            Students student = studentService.findStudent(Integer.parseInt(SID));
+            Book book = bookService.findBook(Long.parseLong(ISBN));
+            student.getBookList().add(book);
+            book.getStudentsList().add(student);
+            book.setStock(book.getStock() - 1);
+            DateInformation dateInformation = new DateInformation();
+            dateInformation.setBook_id(Long.parseLong(ISBN));
+            dateInformation.setStudent_id(Integer.parseInt(SID));
+            dateInformation.setBorrowDate(borrowDate);
+            dateInformation.setDueDate(dueDate);
+            dateInformationService.saveDateInfo(dateInformation);
+            studentService.save(student);
+            bookService.saveBook(book);
+            return "redirect:/";
+        }
     }
     @RequestMapping("/returnBook")
     public String bookReturnMapping()
@@ -54,6 +85,27 @@ public class BorrowReturnController {
     public String bookReturnProcessing(@RequestParam(name = "book_ISBN") String ISBN,
                                        @RequestParam(name = "student_ID") String SID,
                                        @RequestParam(name = "returnDate") String returnDate){
+        if(ISBN.isBlank() || SID.isBlank())
+        {
+            return "redirect:/returnBook";
+        }
+        else if(!(ISBN.matches("[0-9]+") && ISBN.length() > 0)){
+            return "redirect:/borrowBook";
+        }
+        else if(!(SID.matches("[0-9]+") && SID.length() > 0)){
+            return "redirect:/returnBook";
+        }
+        // if student does not exist
+        else if(studentService.ifStudentExists(Integer.parseInt(SID))==false)
+        {
+            return "redirect:/returnBook";
+        }
+        // if book does not exist
+        else if(bookService.ifBookNotExists(Long.parseLong(ISBN))){
+            return "redirect:/returnBook";
+
+        }
+        else{
         Book book =  bookService.findBook(Long.parseLong(ISBN));
         Students student = studentService.findStudent(Integer.parseInt(SID));
         DateInformation dateInformation = dateInformationService.findDateInfoFromDates(Long.parseLong(ISBN),
@@ -75,6 +127,7 @@ public class BorrowReturnController {
         bookService.saveBook(book);
 
         return "redirect:/";
+        }
 
     }
 
