@@ -9,7 +9,7 @@
     <h1>Borrow book</h1>
 
     <br />
-    <form action="#" th:action="@{/borrowBookSave}"  method="post">
+    <form action="#" th:action="@{/borrowBookSave}" method="post">
 
         <table border="0" cellpadding="10">
             <tr>
@@ -37,8 +37,18 @@
                 <td ><button type="submit">Save</button> </td>
                 <td > <a href="/"><input type="button" value="Cancel" /></a></td>
             </tr>
+
         </table>
     </form>
+    <h2 th:if="${outOfStockError}" class="error">Out of Stock!</h2>
+    <h2 th:if="${noBookFoundError}" class="error">Book does not exist!</h2>
+    <h2 th:if="${noStudentFoundError}" class="error">Student does not exist!</h2>
+    <h2 th:if="${invalidISBNError}" class="error">ISBN is invalid!</h2>
+    <h2 th:if="${invalidSIDError}" class="error">Student ID is invalid!</h2>
+    <h2 th:if="${invalidEntryError}" class="error">Blank Entry!</h2>
+    <h2 th:if="${alreadyBorrowedError}" class="error">Book already borrowed!</h2>
+
+
 </div>
 </body>
 </html>

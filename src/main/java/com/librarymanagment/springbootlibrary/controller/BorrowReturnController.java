@@ -2,12 +2,14 @@ package com.librarymanagment.springbootlibrary.controller;
 
 import com.librarymanagment.springbootlibrary.model.Book;
 import com.librarymanagment.springbootlibrary.model.DateInformation;
+import com.librarymanagment.springbootlibrary.model.ErrorModel;
 import com.librarymanagment.springbootlibrary.model.Students;
 import com.librarymanagment.springbootlibrary.resource.BookService;
 import com.librarymanagment.springbootlibrary.resource.DateInformationService;
 import com.librarymanagment.springbootlibrary.resource.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,7 @@ public class BorrowReturnController {
     DateInformationService dateInformationService;
     @RequestMapping("/borrowBook")
     public String goToBorrowPage(){
+
         return "borrowBook";
     }
 
@@ -30,33 +33,45 @@ public class BorrowReturnController {
     public String borrowBook(@RequestParam(name = "book_ISBN") String ISBN,
                              @RequestParam(name = "student_ID") String SID,
                              @RequestParam(name = "borrowDate") String borrowDate,
-                             @RequestParam(name = "dueDate") String dueDate)
+                             @RequestParam(name = "dueDate") String dueDate,Model model)
     {
 
         if(ISBN.isBlank() || SID.isBlank())
         {
-            return "redirect:/borrowBook";
+            model.addAttribute("invalidEntryError", true);
+            return "borrowBook-error";
         }
         // if String contains a character
         else if(!(ISBN.matches("[0-9]+") && ISBN.length() > 0)){
-            return "redirect:/borrowBook";
+            model.addAttribute("invalidSIDError", true);
+            return "borrowBook-error";
         }
         else if(!(SID.matches("[0-9]+") && SID.length() > 0)){
-            return "redirect:/borrowBook";
+            model.addAttribute("invalidISBNError", true);
+            return "borrowBook-error";
         }
         // if student does not exist
+        // does not handle large input like long ISBN, FIX
         else if(studentService.ifStudentExists(Integer.parseInt(SID))==false)
         {
-            return "redirect:/borrowBook";
+            model.addAttribute("noStudentFoundError", true);
+            return "borrowBook-error";
         }
         // if book does not exist
         else if(bookService.ifBookNotExists(Long.parseLong(ISBN))){
-            return "redirect:/borrowBook";
+            model.addAttribute("noBookFoundError", true);
+            return "borrowBook-error";
 
         }
         //if out of stock
         else if(bookService.findBook(Long.parseLong(ISBN)).getStock()==0){
-            return "redirect:/borrowBook";
+            model.addAttribute("outOfStockError", true);
+            return "borrowBook-error";
+        }
+        // if book already borrowed
+        else if(studentService.findStudent(Integer.parseInt(SID)).getBookList().contains(bookService.findBook(Long.parseLong(ISBN)))){
+            model.addAttribute("alreadyBorrowedError", true);
+            return "borrowBook-error";
         }
         else {
             Students student = studentService.findStudent(Integer.parseInt(SID));
@@ -84,7 +99,7 @@ public class BorrowReturnController {
     @PostMapping(value="/returnBookSave")
     public String bookReturnProcessing(@RequestParam(name = "book_ISBN") String ISBN,
                                        @RequestParam(name = "student_ID") String SID,
-                                       @RequestParam(name = "returnDate") String returnDate){
+                                       @RequestParam(name = "returnDate") String returnDate, Model model){
         if(ISBN.isBlank() || SID.isBlank())
         {
             return "redirect:/returnBook";
