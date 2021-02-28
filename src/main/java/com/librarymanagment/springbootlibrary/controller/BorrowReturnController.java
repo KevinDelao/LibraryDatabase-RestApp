@@ -67,7 +67,19 @@ public class BorrowReturnController {
         else if (studentService.findStudent(Integer.parseInt(SID)).getBookList().contains(bookService.findBook(Long.parseLong(ISBN)))) {
             model.addAttribute("alreadyBorrowedError", true);
             return "borrowBook-error";
-        } else {
+        }
+        //if dates borrow and due date same
+        else if(borrowDate.compareTo(dueDate) == 0){
+            model.addAttribute("dateEqualError", true);
+            return "borrowBook-error";
+        }
+        //if fines are do then cannot borrow book
+        else if(studentService.findStudent(Integer.parseInt(SID)).getFines() > 0)
+        {
+            model.addAttribute("finesDueError", true);
+            return "borrowBook-error";
+        }
+        else {
             Students student = studentService.findStudent(Integer.parseInt(SID));
             Book book = bookService.findBook(Long.parseLong(ISBN));
             student.getBookList().add(book);

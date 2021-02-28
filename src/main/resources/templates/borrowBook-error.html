@@ -47,7 +47,8 @@
     <h2 th:if="${invalidSIDError}" class="error">Student ID is invalid!</h2>
     <h2 th:if="${invalidEntryError}" class="error">Blank Entry!</h2>
     <h2 th:if="${alreadyBorrowedError}" class="error">Book already borrowed!</h2>
-
+    <h2 th:if="${dateEqualError}" class="error">Borrow date and due date cannot be the same!</h2>
+    <h2 th:if="${finesDueError}" class="error">Student cannot borrow new book until late fees are paid!</h2>
 
 </div>
 </body>
