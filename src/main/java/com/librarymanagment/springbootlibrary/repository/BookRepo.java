@@ -16,6 +16,9 @@ public interface BookRepo extends JpaRepository<Book,Long> {
     @Query(value = "SELECT COUNT(1) FROM book WHERE isbn = :id1",nativeQuery = true)
     Integer checkIfExists(@Param("id1") Long id1);
 
+    @Query(value = "SELECT COUNT(1) FROM student_books WHERE isbn = :id1",nativeQuery = true)
+    Integer checkIfBorrowed(@Param("id1") Long id1);
+
     @Modifying
     @Transactional
     @Query(value = "delete from book u where u.ISBN = :id1",nativeQuery = true)

@@ -25,7 +25,8 @@ public class BookService {
     {
         bookRepo.save(book);
     }
-    public boolean ifBookNotExists(Long id){
+    public boolean ifBookNotExists(Long id)
+    {
        int count = bookRepo.checkIfExists(id);
        if(count == 0)
        {
@@ -34,6 +35,17 @@ public class BookService {
        else{
            return false;
        }
+    }
+    public boolean ifBookNotBorrowed(Long id)
+    {
+        int count = bookRepo.checkIfBorrowed(id);
+        if(count == 0)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     public void deleteBookByID(Long theId)
     {

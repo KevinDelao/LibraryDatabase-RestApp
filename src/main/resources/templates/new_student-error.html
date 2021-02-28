@@ -1,32 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" >
-    <title>Student Edit</title>
+    <meta charset="UTF-8">
+    <title>New Student</title>
 </head>
 <body>
 <div align="center">
-    <h1>Edit Student</h1>
+    <h1>Enter a New Student</h1>
     <br />
-    <form action="#" th:action="@{/saveStudentEdit}" th:object="${student}"
+    <form action="#" th:action="@{/saveStudent}" th:object="${student}"
           method="post">
 
         <table border="0" cellpadding="10">
             <tr>
-                <td>Student ID:</td>
-                <td>
-                    <input type="text" th:field="*{id}" readonly="readonly" />
-                </td>
-            </tr>
-            <tr>
                 <td>Name:</td>
-                <td>
-                    <input type="text" th:field="*{name}" />
-                </td>
+                <td><input type="text" th:field="*{name}" /></td>
+
             </tr>
             <tr>
                 <td>Age:</td>
-                <td><input type="text" th:field="*{age}" /></td>
+                <!--                <td><input type="text" th:field="*{age}" /></td>-->
+                <td><input type="number" th:field="*{age}" id="ageInput" name="ageInput"
+                           min="10" max="100"></td>
+
             </tr>
             <tr>
                 <td>Department:</td>
@@ -43,9 +39,9 @@
                 </a></td>
             </tr>
         </table>
-
     </form>
+    <h2 th:if="${inputError}" class="error">Error with input!</h2>
+    <h2 th:if="${blankEntryError}" class="error">Blank entries not allowed!</h2>
 </div>
-
 </body>
 </html>

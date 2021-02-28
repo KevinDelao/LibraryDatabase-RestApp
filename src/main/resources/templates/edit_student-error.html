@@ -45,6 +45,8 @@
         </table>
 
     </form>
+    <h2 th:if="${inputError}" class="error">Error with input!</h2>
+    <h2 th:if="${blankEntryError}" class="error">Blank input not allowed!</h2>
 </div>
 
 </body>

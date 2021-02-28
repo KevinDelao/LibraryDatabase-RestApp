@@ -1,28 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" >
-    <title>Book Edit</title>
+    <meta charset="UTF-8">
+    <title>New Book</title>
 </head>
 <body>
 <div align="center">
-    <h1>Edit Book</h1>
+    <h1>Enter a New Book</h1>
     <br />
-    <form action="#" th:action="@{/saveBookEdit}" th:object="${book}"
+    <form action="#" th:action="@{/saveBook}" th:object="${book}"
           method="post">
 
         <table border="0" cellpadding="10">
             <tr>
-                <td>Book ID:</td>
-                <td>
-                    <input type="text" th:field="*{id}" readonly="readonly" />
-                </td>
-            </tr>
-            <tr>
                 <td>Title:</td>
-                <td>
-                    <input type="text" th:field="*{title}" />
-                </td>
+                <td><input type="text" th:field="*{title}" /></td>
+
             </tr>
             <tr>
                 <td>Author:</td>
@@ -34,16 +27,20 @@
             </tr>
             <tr>
                 <td>Stock:</td>
-                <td><input type="text" th:field="*{stock}" /></td>
+                <td><input type="number" th:field="*{stock}" id="stockInput" name="stockInput"
+                           min="1" max="100"></td>
             </tr>
             <tr>
-                <td ><button type="submit">Save</button> </td>
-                <td > <a href="/">
+                <td><button type="submit">Save</button> </td>
+                <td> <a href="/">
                     <input type="button" value="Cancel" />
                 </a></td>
             </tr>
         </table>
     </form>
+    <h2 th:if="${inputError}" class="error">Error with input!</h2>
+    <h2 th:if="${blankEntryError}" class="error">Blank entries not allowed!</h2>
+
 </div>
 </body>
 </html>

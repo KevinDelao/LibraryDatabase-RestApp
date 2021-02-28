@@ -23,6 +23,17 @@ public class StudentService {
         return studentRepository.findById(theId).get();
 
     }
+    public boolean ifNotBorrowingBook(Integer id)
+    {
+        int count = studentRepository.checkIfBorrowingBook(id);
+        if(count == 0)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     public boolean ifStudentExists(Integer id){
         return studentRepository.existsById(id);
     }
