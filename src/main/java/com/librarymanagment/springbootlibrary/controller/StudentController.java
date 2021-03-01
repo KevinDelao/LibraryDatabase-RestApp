@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+// Controller for actions related to student object
 @Controller
 public class StudentController {
     @Autowired
@@ -23,12 +24,14 @@ public class StudentController {
     @Autowired
     DateInformationService dateInformationService;
 
+    //Gets all students to display
     @RequestMapping("/showStudents")
     public String getAllStudents(Model model){
         List<Students> studentsList = studentService.getAll();
         model.addAttribute("listStudents",studentsList);
         return "show_students";
     }
+    //creates student object and maps to new_student.html
     @RequestMapping("/newStudent")
     public String createNewStudent(Model model)
     {
@@ -40,14 +43,17 @@ public class StudentController {
     @PostMapping("/saveStudent")
     public String saveStudent(@Valid @ModelAttribute("student") Students student, BindingResult bindingResult, Model model){
 
+        //if any errors with form occurs bindingResult will catch it and then add error using model
         if(bindingResult.hasErrors()){
             model.addAttribute("inputError", true);
             return "new_student-error";        }
 
+        //if any input is blank then add error message
         else if(student.getName().isBlank()||student.getDepartment().isBlank()||student.getEmail().isBlank()){
             model.addAttribute("blankEntryError", true);
             return "new_student-error";
         }
+        //otherwise save student
         else {
             studentService.save(student);
             return "redirect:/showStudents";
@@ -79,23 +85,29 @@ public class StudentController {
     @RequestMapping("/borrowedBooks/{id}")
     public String showBooks(@PathVariable(name = "id") Integer id,Model model, Model model2)
     {
+        //find student by id
         Students student = studentService.findStudent(id);
+        //get list of books borrowed by student
         List <Book> bookList = student.getBookList();
         List<DateInformation> dateInformations = new ArrayList<>();
+        //loop will find dates for every book borrowed by student
         for(int i = 0; i< bookList.size();i++){
             // find date info based on book ID and student id and the add date info object to list
             dateInformations.add(dateInformationService.findDateInfoFromDates(bookList.get(i).getId(),student.getId()));
         }
         model.addAttribute("borrowedBooks",bookList);
+        //dates will be showed in separate table as thymeleaf does not seem to allow looping for two objects
         model2.addAttribute("dateInfoLists",dateInformations);
         return "borrowedBooksList";
     }
     //edit student with model and view
     @RequestMapping("/editStudent/{id}")
     public ModelAndView editStudent(@PathVariable(name = "id") Integer id) {
+        //edit_student.html will be used to view student object for editing
         ModelAndView mav = new ModelAndView("edit_student");
         Students student = studentService.findStudent(id);
         mav.addObject("student", student);
+        //will redirect to edit_student
         return mav;
     }
 
@@ -103,6 +115,7 @@ public class StudentController {
     public String deleteStudent(@PathVariable(name = "id") Integer id)
     {
         //if student is borrowing a book then cannot delete student
+        //did not add message because creating index-error.html did show books and error messages
         if(!studentService.ifNotBorrowingBook(id))
         {
             return "redirect:/showStudents";
@@ -119,9 +132,12 @@ public class StudentController {
         }
     }
 //    @RequestMapping(value={"/finePayment", "/finePayment-error"})
+    //handles fee payment
     @RequestMapping("/finePayment")
     public String payFineRedirect(Model model)
     {
+        //this list of students is to show all the students and if each student
+        //owes a fine or not
         List<Students> studentsList = studentService.getAll();
         model.addAttribute("listStudents",studentsList);
         //directs to finePayment.html
@@ -143,9 +159,8 @@ public class StudentController {
         else if(!(student_id.matches("[0-9]+") && student_id.length() > 0)){
             return "redirect:/finePayment";
         }
-
         // if student does not exist reload page
-        else if(studentService.ifStudentExists(Integer.parseInt(student_id))==false)
+        else if(!studentService.ifStudentExists(Integer.parseInt(student_id)))
         {
             return "redirect:/finePayment";
         }

@@ -13,19 +13,22 @@ public class StudentService {
     @Autowired
     StudentRepo studentRepository;
 
+    //get all students
     public List<Students> getAll(){
         return studentRepository.findAll();
 
     }
-
+    //find student by ID
     public Students findStudent(Integer theId)
     {
         return studentRepository.findById(theId).get();
 
     }
+    //chek if student is borrowing a book
     public boolean ifNotBorrowingBook(Integer id)
     {
         int count = studentRepository.checkIfBorrowingBook(id);
+        //if count is zero then book not being borrowed
         if(count == 0)
         {
             return true;

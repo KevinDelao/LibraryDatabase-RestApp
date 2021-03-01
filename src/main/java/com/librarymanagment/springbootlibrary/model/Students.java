@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-
 @Table(name="students")
 public class Students {
     //need default constructor for connection to SQL table to be made
@@ -102,6 +101,9 @@ public class Students {
     @Column(name="fines")
     private double fines;
 
+    //Many to many association, Student will be the owning entity
+    //student_id is the foreign key for student and ISBN will be the foreign key for book
+    //bookList matches the name of the list in the Book model entity
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "student_books",
             joinColumns = { @JoinColumn(name = "student_id")},

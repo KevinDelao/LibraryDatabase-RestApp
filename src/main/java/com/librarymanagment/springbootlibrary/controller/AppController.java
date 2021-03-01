@@ -14,12 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
+
 @Controller
 public class AppController {
     @Autowired
    private BookService bookService;
     @Autowired
     private StudentService studentService;
+
+    //in charge of mapping the start up page, maps to directs to index.html
     @RequestMapping("/")
     public String viewHomePage(Model model)
     {
@@ -28,6 +31,8 @@ public class AppController {
         return "index";
     }
 
+    // mapping to handle creatting new students
+    //mapping comes from index.html
     @RequestMapping("/newBook")
     public String enterNewBookPage(Model model) {
         Book book = new Book();
@@ -80,6 +85,7 @@ public class AppController {
 
     }
     //edit book using model view
+    //model view will display current values in html and allow a user to edit attributes
     @RequestMapping("/edit/{id}")
     public ModelAndView editBook(@PathVariable(name = "id") Long id)
     {
@@ -90,12 +96,13 @@ public class AppController {
         return mav;
     }
 
+    //in charge of deleting book using ID
     @RequestMapping("/delete/{id}")
     public String deleteBook(@PathVariable(name = "id") Long ISBN, Model model)
     {
         //had to redirect as error message for index-error mapping was not showing all books
         //do not delete if book is borrowed
-        // instead just prevented a delete
+        // instead just prevent a delete from occuring
         if(!bookService.ifBookNotBorrowed(ISBN))
         {
             return "redirect:/";

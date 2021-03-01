@@ -12,10 +12,12 @@ public class DateInformationService {
     public void saveDateInfo(DateInformation dateInformation){
         dateInformationRepo.save(dateInformation);
     }
+    //uses custom query search to look up date by ISBN and student ID
     public DateInformation findDateInfoFromDates(Long ISBN, Integer student_id)
     {
         return dateInformationRepo.searchBorrowDate(ISBN,student_id);
     }
+    //delete dates by ISBN and student ID
     public void deleteDates(Long ISBN, Integer student_id)
     {
          dateInformationRepo.deleteDates(ISBN,student_id);

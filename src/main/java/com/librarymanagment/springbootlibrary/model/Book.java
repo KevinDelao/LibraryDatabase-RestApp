@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+//Book entity
 @Entity
 @Table(name = "book")
 public class Book {
@@ -50,13 +51,13 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getLibrarySection() {
-        return librarySection;
-    }
-
-    public void setLibrarySection(String librarySection) {
-        this.librarySection = librarySection;
-    }
+//    public String getLibrarySection() {
+//        return librarySection;
+//    }
+//
+//    public void setLibrarySection(String librarySection) {
+//        this.librarySection = librarySection;
+//    }
 
     public int getStock() {
         return stock;
@@ -84,8 +85,8 @@ public class Book {
     private String author;
     @Column(name="publisher")
     private String publisher;
-    @Column(name="librarySection")
-    private String librarySection;
+//    @Column(name="librarySection")
+//    private String librarySection;
     @Column(name="stock")
     private int stock;
 
