@@ -23,4 +23,4 @@ Project is created with:
 ## Setup
 To run this project, install it locally using npm:
 
-<img src="spring_images/Screenshot (56).png" alt="phone image" width="200px" />
+<img src="spring_images/image1" alt="phone image" width="200px" />
