@@ -1,11 +1,16 @@
 # Library Managament System (REST APP)
 ##Author: Kevin Delao
 
+
+
 ## Table of contents
+* {Introduction] (#intro)
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
 
+## Introduction
+The goal of this project was to
 ## General info
 This project is simple Lorem ipsum dolor generator.
 	
@@ -17,3 +22,5 @@ Project is created with:
 	
 ## Setup
 To run this project, install it locally using npm:
+
+<img src="spring_images/Screenshot (56).png" alt="phone image" width="200px" />
