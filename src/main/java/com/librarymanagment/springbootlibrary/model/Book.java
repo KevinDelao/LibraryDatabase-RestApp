@@ -16,6 +16,8 @@ import java.util.UUID;
 public class Book {
 
     public Book(){
+        //generates a random 13 character long ID
+        //did this as actual books have 13 ISBN numbers
         Random random = new Random();
         this.id = Math.round(random.nextFloat() * Math.pow(10,13));
     }
@@ -75,7 +77,6 @@ public class Book {
     }
 
     @Id
-//    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="ISBN")
     private Long id;
     @NotBlank

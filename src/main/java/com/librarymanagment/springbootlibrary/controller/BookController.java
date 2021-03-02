@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @Controller
-public class AppController {
+public class BookController {
     @Autowired
    private BookService bookService;
     @Autowired
@@ -28,7 +28,7 @@ public class AppController {
     {
         List<Book> bookList = bookService.getAll();
         model.addAttribute("listBooks",bookList);
-        return "index";
+        return "`index`";
     }
 
     // mapping to handle creatting new students
