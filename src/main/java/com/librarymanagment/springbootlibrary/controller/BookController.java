@@ -28,7 +28,7 @@ public class BookController {
     {
         List<Book> bookList = bookService.getAll();
         model.addAttribute("listBooks",bookList);
-        return "`index`";
+        return "index";
     }
 
     // mapping to handle creatting new students
