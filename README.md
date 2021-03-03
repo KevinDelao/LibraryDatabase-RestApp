@@ -50,7 +50,7 @@ The edit book allows for the editing of information of the book with the excepti
 ### Borrow Book
 The Borrowed Book page will accept a the ISBN of the book being borrowed as well as the ID of the student borrowing the book. Additionally, the borrow date and the due date for the book 
 can be selected. If the due dates have an error or if any error occurs the custom error messages will display.
- <img src="spring_images/borrowing_book.jpg" width="600"/>
+ <img src="spring_images/borrowing_book.jpg" width="500"/>
 
 ### Return Book
 
@@ -61,7 +61,7 @@ a 5 dollar fine will be added to the students debt.
 ### Fine Payment
 
 The fine payment will simply allow a student to pay of any fines they have. The page will show the list of all the students in the system as well as how much money they owe.
- <img src="spring_images/Fine_payment.jpg" width="600"/>
+ <img src="spring_images/Fine_payment.jpg" width="500"/>
 
 
 ### Student List
