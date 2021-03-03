@@ -60,7 +60,7 @@ a 5 dollar fine will be added to the students debt.
 
 ### Fine Payment
 
-The fine payment will simply allow a student to pay of any fines they have. The page will show the list of all the students in the system as well as how much money they owe.
+The fine payment will simply allow a student to pay of any fines they have. The page will show the list of all the students in the system as well as how much money they owe. <br>
  <img src="spring_images/Fine_payment.jpg" width="500"/>
 
 
