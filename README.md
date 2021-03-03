@@ -104,3 +104,4 @@ To run this project, simply run SpringBootLibraryApplication which starts the sp
 succesfully run the project. Additionally, to connect to a database locally or on AWS simply edit the application.yml for the database url as well as include a username or password
 if the database is password protected.
 
+[a relative link](LICENSCE)
