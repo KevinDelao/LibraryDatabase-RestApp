@@ -8,8 +8,9 @@
 * [Introduction](#intro)
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Setup](#setup)
 * [Site](#site)
+* [Setup](#setup)
+
 ## Introduction
 The goal of this project was to create simple library managment system. This project was inspired from a part time job I had working in a library during my undergraduate studies.
 I wanted to see if I could build a simple software application that replicated the software I used working as a librarian in order to see what goes into the software thats used to
