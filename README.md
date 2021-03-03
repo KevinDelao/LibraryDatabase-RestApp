@@ -42,6 +42,8 @@ Each book also has an action tab that lets someone edit the book information or 
 ### New Book
  The new book form allows a user to create a new book and also specify the stock available for that book (min has to be 1). The book generated will have a randomly generated ISBN
  that is 13 characters long as books now have ISBN's with 13 numbers.
+ <br>
+
  <img src="spring_images/entering_new_book.jpg" width="600"/>
  
 ### Edit Book
