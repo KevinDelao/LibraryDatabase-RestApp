@@ -50,6 +50,7 @@ The edit book allows for the editing of information of the book with the excepti
 ### Borrow Book
 The Borrowed Book page will accept a the ISBN of the book being borrowed as well as the ID of the student borrowing the book. Additionally, the borrow date and the due date for the book 
 can be selected. If the due dates have an error or if any error occurs the custom error messages will display.
+ <br>
  <img src="spring_images/borrowing_book.jpg" width="500"/>
 
 ### Return Book
