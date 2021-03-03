@@ -46,6 +46,7 @@ Each book also has an action tab that lets someone edit the book information or 
  
 ### Edit Book
 The edit book allows for the editing of information of the book with the exception of the ISBN which is unchangable
+<br>
  <img src="spring_images/edit_book.jpg" width="600"/>
  
 ### Borrow Book
