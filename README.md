@@ -35,9 +35,10 @@ Project was created with:
 ### Homepage
 The homepage serves to display the currently available books available in the library. The Books have attributes assoicated with it like ISBN, Title, Author, Publisher, and Stock. 
 Each book also has an action tab that lets someone edit the book information or delete the book if its not being borrowed.
+index_home_book.jpg
 
 <img src="spring_images/index_home_no_book.png" alt="phone image" width="100" height="100"/>
-
+<img src="spring_images/index_home_book.jpg"/>
 ## Setup
 To run this project, simply run SpringBootLibraryApplication which starts the spring application. The pom file included with will download all the necessary libraries needed to 
 succesfully run the project. Additionally, to connect to a database locally or on AWS simply edit the application.yml for the database url as well as include a username or password
