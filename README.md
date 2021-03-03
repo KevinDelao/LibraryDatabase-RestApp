@@ -14,7 +14,7 @@
 ## Introduction
 The goal of this project was to create simple library managment system. This project was inspired from a part time job I had working in a library during my undergraduate studies.
 I wanted to see if I could build a simple software application that replicated the software I used working as a librarian in order to see what goes into the software thats used to
-manage book returns and book borrowing. This applications allows for the creation of books and students and also also for students to return and borrow books. Overall this project 
+manage book returns and book borrowing. This applications allows for the creation of books and students and also for students to return and borrow books. Overall this project 
 was also a way to work on various aspects of programming that I learned from my CS courses.
 ## General info
 This application is a full stack application in that HTML and CSS is used for the front end and JAVA and MYSQL is used to handle the backend. More specifically HTML + Thymeleaf is used to
