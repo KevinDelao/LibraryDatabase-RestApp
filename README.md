@@ -92,6 +92,7 @@ Similar to the edit books page, the edit student page allows for the editing of 
  
 ### Borrowed Books
 The Borrowed Books page shows the list of books each student borrowed along with the borrow and due date for the book.
+<br>
  <img src="spring_images/borrowed_books.jpg" width="600"/>
  
 ### Error Handling
