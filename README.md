@@ -4,7 +4,8 @@
 
 
 ## Table of contents
-* {Introduction] (#intro)
+
+* [Introduction] (#intro)
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
