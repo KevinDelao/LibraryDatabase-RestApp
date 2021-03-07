@@ -18,8 +18,7 @@ manage book returns and book borrowing. This applications allows for the creatio
 was also a way to work on various aspects of programming that I learned from my CS courses.
 ## General info
 This application is a full stack application in that HTML and CSS is used for the front end and JAVA and MYSQL is used to handle the backend. More specifically HTML + Thymeleaf is used to
-to show forms entries and data from the MySQL database. Thymeleaf was chosen over JSP due the simplicity of Thymeleaf at displaying class objects. For the backend Spring REST was used to easily
-communicate between Java and my local MySQL database. 
+to show forms entries and data from the MySQL database. Thymeleaf MVC was chosen over JSP due the simplicity of Thymeleaf at displaying class objects. For the backend Spring REST was used to easily communicate between Java and my local MySQL database. 
 	
 ## Technologies
 Project was created with:
@@ -28,7 +27,7 @@ Project was created with:
 * CSS
 * MYSQL
 * Thymeleaf
-* Spring REST
+* Spring REST, Spring MVC
 * IDE: IntelliJ Community Edition (2020)
 
 ## Site
