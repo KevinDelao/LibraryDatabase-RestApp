@@ -31,7 +31,7 @@ public class BookController {
         return "index";
     }
 
-    // mapping to handle creatting new students
+    // mapping to handle `creatting new students
     //mapping comes from index.html
     @RequestMapping("/newBook")
     public String enterNewBookPage(Model model) {
